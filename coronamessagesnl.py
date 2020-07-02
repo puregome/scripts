@@ -11,10 +11,7 @@ reddit = praw.Reddit(client_id=myclient_id,
                         user_agent=myuser_agent)
 
 def main():
-   # r/thenetherlands weekly Megathread: Coronavirus COVID-19 in Nederland
-   #threads = {'02': 'fg6nz6', '03': 'fhjmce', '04': 'filu7c', '05': 'fjdhbi', '06': 'fk9v9h', '07': 'fldu9y', '08': 'fn3yxt', '09': 'fnxpx8', '10': 'fph5pb', '11': 'frtesk', '12': 'fu0w1d', '13': 'fxja6g', '14': 'g25oxd', '15': 'g5ne1u'}
    subreddit_name = "CoronaNL"
-   #subreddit_name = "coronanetherlands"
    # from get_subreddit_ids.py
    file_in = open(f"submissions_ids_{subreddit_name}.txt")
    threads = file_in.read().splitlines()
@@ -30,7 +27,7 @@ def get_comments(subreddit_name, thread_id):
                           quotechar = '"',
                           doublequote = True,
                           quoting = csv.QUOTE_NONNUMERIC)
-   comments_out.writerow(['created','id','author','parent','score','body'])
+   comments_out.writerow(['created','subreddit','id','author','parent','score','body'])
 
 
    submission = reddit.submission(id = thread_id)
@@ -43,7 +40,7 @@ def get_comments(subreddit_name, thread_id):
    print("number of comments:", len(submission.comments.list()))
 
    for comment in submission.comments.list():
-      comments_out.writerow([int(comment.created_utc), comment.id, comment.author, comment.parent_id, comment.score, comment.body])
+      comments_out.writerow([int(comment.created_utc), subreddit_name, comment.id, comment.author, comment.parent_id, comment.score, comment.body])
 
    file_out.close()
 
@@ -66,4 +63,3 @@ if __name__ == '__main__':
 ## https://stackoverflow.com/questions/53988619/praw-6-get-all-submission-of-a-subreddit
 # https://www.reddit.com/r/pushshift/comments/b7onr6/max_number_of_results_returned_per_query/
 # https://github.com/Watchful1/Sketchpad/blob/master/postDownloader.py
-
