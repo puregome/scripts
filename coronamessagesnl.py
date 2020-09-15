@@ -1,7 +1,15 @@
-import praw
-import csv
+# usage: coronamessagesnl.py submission_ids_* 
 
-credentials_file = open("credentials.txt")
+import csv
+import os
+import praw
+import re
+import sys
+
+FILECREDENTIALS = "../credentials.txt"
+OUTDIR = "downloads/"
+
+credentials_file = open(FILECREDENTIALS)
 myclient_id = credentials_file.readline().rstrip()
 myclient_secret = credentials_file.readline().rstrip()
 myuser_agent = credentials_file.readline().rstrip()
@@ -11,17 +19,19 @@ reddit = praw.Reddit(client_id=myclient_id,
                         user_agent=myuser_agent)
 
 def main():
-   subreddit_name = "CoronaNL"
-   # from get_subreddit_ids.py
-   file_in = open(f"submissions_ids_{subreddit_name}.txt")
-   threads = file_in.read().splitlines()
+   for inFileName in sys.argv[1:]:
+      subreddit_name = re.sub(r"\.txt$","",inFileName.split("_")[2])
+      # from get_subreddit_ids.py
+      file_in = open(f"submissions_ids_{subreddit_name}.txt")
+      threads = file_in.read().splitlines()
    
-   for thread_id in threads:
-      print(subreddit_name, thread_id)
-      get_comments(subreddit_name, thread_id)
+      for thread_id in threads:
+         print(subreddit_name, thread_id)
+         get_comments(subreddit_name, thread_id)
 
 def get_comments(subreddit_name, thread_id):
-   file_out = open(f'comments/{subreddit_name}_{thread_id}.csv', 'w', encoding = 'utf8', newline = '')
+   if not os.path.isdir(OUTDIR): os.mkdir(OUTDIR)
+   file_out = open(OUTDIR+f'{subreddit_name}_{thread_id}.csv', 'w', encoding = 'utf8', newline = '')
    comments_out = csv.writer(file_out,
                           delimiter = ',',
                           quotechar = '"',
