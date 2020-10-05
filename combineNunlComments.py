@@ -45,7 +45,8 @@ def updateCommentIds(commentsByKey,ids):
     return(commentsById)
 
 def showComments(commentsById):
-    pd.DataFrame(commentsById).T.to_csv(sys.stdout,index=False)
+    if len(commentsById) > 0:
+        pd.DataFrame(commentsById).T.to_csv(sys.stdout,index=False)
 
 commentsByKey,ids = readFiles(sys.argv[1:])
 commentsById = updateCommentIds(commentsByKey,ids)
