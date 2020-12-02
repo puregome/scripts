@@ -1,4 +1,4 @@
-# usage: coronamessagesnl.py submission_ids_* 
+# usage: coronamessagesnl.py submissions_ids_* 
 
 import csv
 import os
