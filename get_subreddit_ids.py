@@ -7,7 +7,6 @@ url = "https://api.pushshift.io/reddit/submission/search?limit=1000&sort=desc&su
 
 start_time = datetime.utcnow()
 
-
 def downloadFromUrl(subreddit):
 	filename_sub = f"submissions_content_{subreddit}.txt"
 	filename_ids = f"submissions_ids_{subreddit}.txt"
@@ -57,6 +56,5 @@ def downloadFromUrl(subreddit):
 	handle_ids.close()
 
 
-#downloadFromUrl("coronanetherlands")
-downloadFromUrl("CoronaNL")
-
+for subreddit in "coronanetherlands CoronaNL CoronavirusNL".split():
+    downloadFromUrl(subreddit)
