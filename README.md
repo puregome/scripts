@@ -8,7 +8,7 @@ those are available in a separate repository
 [PuReGoMe queries](https://github.com/puregome/queries).
 
 The most important script is 
-[text-unique.py](https://github.com/puregome/scripts/blob/master/text-unique.py)
+[text-unique.py](https://github.com/puregome/scripts/blob/master/src/puregome_scripts/text_unique.py)
 which is being used for removing duplicate tweets from the data.
 
 ## Installation
