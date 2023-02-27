@@ -13,11 +13,12 @@ which is being used for removing duplicate tweets from the data.
 
 ## Installation
 
-`pip install .`
+- `pip install -r requirements.txt`
+- `pip install .`
 
 ## Testing
 
-`pytest tests`
+- `pytest tests`
 
 ## Contact
 
